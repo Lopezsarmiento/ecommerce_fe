@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isCartOpen: false,
@@ -7,20 +7,19 @@ const initialState = {
 };
 
 export const cartSlice = createSlice({
-  name: 'cart',
+  name: "cart",
   initialState,
   reducers: {
     setItems: (state, action) => {
-      // this can be done because we are using immer under the hood
-      // otherwise we should copy the state and return it
       state.items = action.payload;
     },
+
     addToCart: (state, action) => {
-      state.cart = [...state.cart, action.payload];
+      state.cart = [...state.cart, action.payload.item];
     },
 
     removeFromCart: (state, action) => {
-      state.cart = state.cart.filter(item => item.id !== action.payload.id);
+      state.cart = state.cart.filter((item) => item.id !== action.payload.id);
     },
 
     increaseCount: (state, action) => {
@@ -47,6 +46,13 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { setItems, addToCart, removeFromCart, increaseCount, decreaseCount, setIsCartOpen  } = cartSlice.actions;
+export const {
+  setItems,
+  addToCart,
+  removeFromCart,
+  increaseCount,
+  decreaseCount,
+  setIsCartOpen,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;
